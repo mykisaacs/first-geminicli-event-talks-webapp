@@ -2,11 +2,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const scheduleContainer = document.getElementById('schedule-container');
   const categorySearch = document.getElementById('category-search');
   const speakerSearch = document.getElementById('speaker-search');
+  const themeSwitcher = document.getElementById('theme-switcher');
+
+  const currentTheme = localStorage.getItem('theme') || 'dark-theme';
+  document.body.classList.add(currentTheme);
 
   fetchAndDisplayTalks();
 
   categorySearch.addEventListener('input', () => fetchAndDisplayTalks());
   speakerSearch.addEventListener('input', () => fetchAndDisplayTalks());
+  themeSwitcher.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    document.body.classList.toggle('light-theme');
+    const newTheme = document.body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
+    localStorage.setItem('theme', newTheme);
+  });
 
   function fetchAndDisplayTalks() {
     const category = categorySearch.value.toLowerCase();

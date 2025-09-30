@@ -1,54 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body.light-theme {
+  --background-color: #f4f4f4;
+  --text-color: #121212;
+  --header-background: linear-gradient(90deg, #2575FC 0%, #6A11CB 100%);
+  --header-border: #6A11CB;
+  --input-border: #6A11CB;
+  --input-focus-border: #2575FC;
+  --input-focus-shadow: #2575FC;
+  --talk-background: white;
+  --talk-border: #ddd;
+  --talk-shadow: rgba(0, 0, 0, 0.1);
+  --talk-hover-shadow: rgba(0, 0, 0, 0.2);
+  --talk-title-color: #2575FC;
+  --talk-time-color: #6A11CB;
+  --talk-speaker-color: #555;
+  --category-background: #6A11CB;
+  --category-text-color: white;
+}
+
+body.dark-theme {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --header-background: linear-gradient(90deg, #6A11CB 0%, #2575FC 100%);
+  --header-border: #2575FC;
+  --input-border: #2575FC;
+  --input-focus-border: #6A11CB;
+  --input-focus-shadow: #6A11CB;
+  --talk-background: #1e1e1e;
+  --talk-border: #333;
+  --talk-shadow: rgba(0, 0, 0, 0.2);
+  --talk-hover-shadow: rgba(0, 0, 0, 0.3);
+  --talk-title-color: #6A11CB;
+  --talk-time-color: #2575FC;
+  --talk-speaker-color: #a0a0a0;
+  --category-background: #2575FC;
+  --category-text-color: white;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
-  background-color: #f4f4f4;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 header {
-  background-color: #333;
+  background: var(--header-background);
   color: white;
-  padding: 1rem;
+  padding: 2rem 1rem;
   text-align: center;
+  border-bottom: 4px solid var(--header-border);
+}
+
+#theme-switcher {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0;
 }
 
 .search-container {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-#category-search {
-  width: 80%;
-  max-width: 400px;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+#category-search,
+#speaker-search {
+  width: 40%;
+  max-width: 300px;
+  padding: 0.75rem;
+  border: 2px solid var(--input-border);
+  border-radius: 25px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#category-search:focus,
+#speaker-search:focus {
+  outline: none;
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 10px var(--input-focus-shadow);
 }
 
 #schedule-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 2rem auto;
   padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
 }
 
 .talk {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  background-color: var(--talk-background);
+  border: 1px solid var(--talk-border);
+  border-radius: 10px;
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px var(--talk-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.talk:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px var(--talk-hover-shadow);
 }
 
 .talk h2 {
   margin-top: 0;
+  color: var(--talk-title-color);
+  font-size: 1.5rem;
 }
 
 .talk .time {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: var(--talk-time-color);
 }
 
 .talk .speakers {
   font-style: italic;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--talk-speaker-color);
 }
 
 .talk .categories {
@@ -57,9 +146,10 @@ header {
 
 .talk .category {
   display: inline-block;
-  background-color: #eee;
-  border-radius: 3px;
-  padding: 0.25rem 0.5rem;
+  background-color: var(--category-background);
+  color: var(--category-text-color);
+  border-radius: 15px;
+  padding: 0.4rem 0.8rem;
   margin-right: 0.5rem;
   font-size: 0.9rem;
 }

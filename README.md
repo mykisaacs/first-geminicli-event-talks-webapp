@@ -7,6 +7,7 @@ A simple website for a one-day tech event.
 *   Displays a schedule of talks for a tech event.
 *   Allows users to search for talks by category.
 *   Allows users to search for talks by speaker.
+*   Light and dark theme switcher.
 
 ## Installation
 
