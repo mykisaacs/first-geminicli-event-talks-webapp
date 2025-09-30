@@ -1,22 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
   const scheduleContainer = document.getElementById('schedule-container');
   const categorySearch = document.getElementById('category-search');
-  let talks = [];
+  const speakerSearch = document.getElementById('speaker-search');
 
-  fetch('/api/talks')
-    .then(response => response.json())
-    .then(data => {
-      talks = data;
-      displayTalks(talks);
-    });
+  fetchAndDisplayTalks();
 
-  categorySearch.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    const filteredTalks = talks.filter(talk => 
-      talk.categories.some(category => category.toLowerCase().includes(searchTerm))
-    );
-    displayTalks(filteredTalks);
-  });
+  categorySearch.addEventListener('input', () => fetchAndDisplayTalks());
+  speakerSearch.addEventListener('input', () => fetchAndDisplayTalks());
+
+  function fetchAndDisplayTalks() {
+    const category = categorySearch.value.toLowerCase();
+    const speaker = speakerSearch.value.toLowerCase();
+    
+    let url = '/api/talks?';
+    if (category) {
+      url += `category=${category}`;
+    }
+    if (speaker) {
+      if (category) url += '&';
+      url += `speaker=${speaker}`;
+    }
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        displayTalks(data);
+      });
+  }
 
   function displayTalks(talksToDisplay) {
     scheduleContainer.innerHTML = '';
